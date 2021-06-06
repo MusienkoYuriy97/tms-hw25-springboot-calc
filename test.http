@@ -1,0 +1,21 @@
+POST localhost:8080/reg
+Content-Type: application/json
+
+{
+  "id": 3,
+  "username": "mus9732",
+  "fname": "Yuriy",
+  "password": "123"
+}
+
+###
+
+POST localhost:8080/calc
+Content-Type: application/json
+U-Token: sasdsad
+
+{
+  "x": 3,
+  "y": 3,
+  "operationType": 4,
+}
