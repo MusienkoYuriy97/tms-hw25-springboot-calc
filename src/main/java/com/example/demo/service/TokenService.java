@@ -12,8 +12,20 @@ public class TokenService {
     @Autowired
     private TokenDao tokenDao;
 
-    public Token get(String tokenId){
-        Optional<Token> token = tokenDao.get(tokenId);
-        return token.orElse(null);
+
+    public boolean delete(String tokenId){
+        if (tokenDao.isExist(tokenId)) {
+            tokenDao.delete(tokenDao.get(tokenId).get());
+            return true;
+        }
+        return false;
+    }
+
+    public void save(int userId, String tokenId){
+        tokenDao.save(new Token(tokenId,userId));
+    }
+
+    public boolean isExist(String tokenId){
+        return tokenDao.isExist(tokenId);
     }
 }

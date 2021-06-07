@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.User;
+import com.example.demo.model.UserDTO;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,9 +18,10 @@ public class RegistrationController {
     UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> save(@RequestBody User user){
-        if (userService.save(user)) {
-            return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
+    public ResponseEntity<User> save(@RequestBody UserDTO userDTO){
+
+        if (userService.save(userDTO)) {
+            return new ResponseEntity<>(userService.getByUsername(userDTO.getUsername()), HttpStatus.ACCEPTED);
         }else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

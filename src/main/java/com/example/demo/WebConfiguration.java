@@ -12,7 +12,6 @@ import java.util.Map;
 @Configuration
 @ComponentScan(basePackages = "com.example")
 public class WebConfiguration {
-
     @Bean
     public Map<Integer, Action> calcAction(Action add, Action sub, Action div, Action mul){
         Map<Integer,Action> calcAction = new HashMap<>();
@@ -42,4 +41,5 @@ public class WebConfiguration {
     public Action div(){
         return new Divide();
     }
+
 }

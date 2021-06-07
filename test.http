@@ -2,20 +2,30 @@ POST localhost:8080/reg
 Content-Type: application/json
 
 {
-  "id": 3,
-  "username": "mus9732",
+  "username": "mus1",
   "fname": "Yuriy",
   "password": "123"
 }
 
 ###
 
+GET localhost:8080/auth?username=mus1&password=123
+Content-Type: application/json
+
+###
+
 POST localhost:8080/calc
 Content-Type: application/json
-U-Token: sasdsad
+U-Token:ccbcf26f-0e18-443a-9609-546e26cba722
 
 {
   "x": 3,
   "y": 3,
-  "operationType": 4,
+  "operationType": 4
 }
+
+###
+
+GET localhost:8080/logout
+Content-Type: application/json
+U-Token:ccbcf26f-0e18-443a-9609-546e26cba722

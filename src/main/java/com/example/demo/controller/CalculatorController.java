@@ -26,15 +26,21 @@ public class CalculatorController {
 
     @PostMapping
     public ResponseEntity<Operation> calc(@RequestBody CalcDTO calcDTO, @RequestHeader("U-Token")String tokenId){
-
         Operation operation = new Operation();
+
         operation.setOperationType(calcDTO.getOperationType());
-        Token token = tokenService.get(tokenId);
-        User byToken = userService.getByToken(token);
-        operation.setUsername(byToken.getUsername());
-        operation.setX(calcDTO.getX());
-        operation.setY(calcDTO.getY());
-        operation.setResult(calculatorService.calculate(calcDTO.getOperationType(),calcDTO.getX(),calcDTO.getY()));
-        return new ResponseEntity<>(operation, HttpStatus.ACCEPTED);
+
+        User user = userService.getByTokenId(tokenId);
+        System.out.println(user);
+        if (user == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }else {
+            operation.setUsername(user.getUsername());
+
+            operation.setX(calcDTO.getX());
+            operation.setY(calcDTO.getY());
+            operation.setResult(calculatorService.calculate(calcDTO.getOperationType(),calcDTO.getX(),calcDTO.getY()));
+            return new ResponseEntity<>(operation, HttpStatus.ACCEPTED);
+        }
     }
 }

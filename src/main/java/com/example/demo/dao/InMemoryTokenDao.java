@@ -17,7 +17,12 @@ public class InMemoryTokenDao implements TokenDao {
 
     @Override
     public Optional<Token> get(String tokenId) {
-        return tokens.stream().filter(token -> token.getTokenId().equals(tokenId)).findFirst().map(Optional::of).orElse(null);
+        for (Token token : tokens) {
+            if (token.getTokenId().equals(tokenId)){
+                return Optional.of(token);
+            }
+        }
+        return Optional.empty();
     }
 
     @Override
@@ -26,7 +31,11 @@ public class InMemoryTokenDao implements TokenDao {
     }
 
     @Override
-    public boolean contains(Token token) {
-        return tokens.contains(token);
+    public boolean isExist(int userId) {
+        return tokens.stream().anyMatch(token -> token.getUserId() == userId);
+    }
+    @Override
+    public boolean isExist(String tokenId) {
+        return tokens.stream().anyMatch(token -> token.getTokenId().equals(tokenId));
     }
 }

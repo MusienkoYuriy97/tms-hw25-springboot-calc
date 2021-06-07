@@ -11,6 +11,8 @@ public interface UserDao {
     void save(User user) ;
     boolean contains(String username);
     boolean contains(String username, String password);
-    Optional<User> getUserByUsername(String username);
-    Optional<User> getUserById(int id);
+    Optional<User> getByUsername(String username);
+    Optional<User> getByUsernameAndPassword(String username,String password);
+    Optional<User> getById(int id);
 }
+

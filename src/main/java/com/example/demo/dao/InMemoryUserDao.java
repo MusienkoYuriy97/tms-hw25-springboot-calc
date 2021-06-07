@@ -22,6 +22,37 @@ public class InMemoryUserDao implements UserDao {
         users.add(user);
     }
 
+    @Override
+    public Optional<User> getByUsername(String username)  {
+        for (User user : users) {
+            if (user.getUsername().equals(username)){
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<User> getByUsernameAndPassword(String username, String password) {
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)){
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
+    }
+
+
+    @Override
+    public Optional<User> getById(int id) {
+        for (User user : users) {
+            if (user.getId() == id){
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
+    }
+
 
     public boolean contains(String username){
         return users.stream().anyMatch(user -> user.getUsername().equals(username));
@@ -30,15 +61,5 @@ public class InMemoryUserDao implements UserDao {
     public boolean contains(String username, String password){
         return users.stream().anyMatch(user -> user.getUsername().equals(username)
                 && user.getPassword().equals(password));
-    }
-
-    @Override
-    public Optional<User> getUserByUsername(String username)  {
-        return users.stream().filter(user -> user.getUsername().equals(username)).findFirst().map(Optional::of).orElse(null);
-    }
-
-    @Override
-    public Optional<User> getUserById(int id) {
-        return users.stream().filter(user -> user.getId() == id).findFirst().map(Optional::of).orElse(null);
     }
 }
